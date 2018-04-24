@@ -1,13 +1,12 @@
-/* eslint-disable */
 import { Router } from 'express'
 import { middleware as query } from 'querymen'
 import { middleware as body } from 'bodymen'
-import { create, index, show, update, destroy } from './controller'
+import { create, index, show, update, destroy, admin } from './controller'
 import { schema } from './model'
 export User, { schema } from './model'
 
 const router = new Router()
-const { name, role } = schema.tree
+const { name: { first_name, middle_name, last_name }, role, email } = schema.tree
 
 /**
  * @api {post} /users Create user
@@ -20,7 +19,7 @@ const { name, role } = schema.tree
  * @apiError 404 User not found.
  */
 router.post('/',
-  body({ name, role }),
+  body({ name: Object, email, role }),
   create)
 
 /**
@@ -34,6 +33,10 @@ router.post('/',
 router.get('/',
   query(),
   index)
+
+router.get('/admin',
+  query(),
+  admin)
 
 /**
  * @api {get} /users/:id Retrieve user
@@ -57,7 +60,7 @@ router.get('/:id',
  * @apiError 404 User not found.
  */
 router.put('/:id',
-  body({ name, role }),
+  body({ name: Object, email, role }),
   update)
 
 /**

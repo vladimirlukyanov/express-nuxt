@@ -1,7 +1,4 @@
 export default {
-  /*
-  ** Headers of the page
-  */
   head: {
     title: 'starter',
     meta: [
@@ -13,18 +10,8 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-  /*
-  ** Global CSS
-  */
   css: ['~/assets/css/main.css'],
-  /*
-  ** Add axios globally
-  */
   build: {
-    vendor: ['axios'],
-    /*
-    ** Run ESLINT on save
-    */
     extend (config, ctx) {
       if (ctx.isClient) {
         config.module.rules.push({
@@ -35,5 +22,10 @@ export default {
         })
       }
     }
-  }
+  },
+  modules: [
+    '@nuxtjs/vuetify',
+    '@nuxtjs/auth',
+    '@nuxtjs/axios'
+  ]
 }

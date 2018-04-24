@@ -34,3 +34,9 @@ export const destroy = ({ params }, res, next) =>
     .then((user) => user ? user.remove() : null)
     .then(success(res, 204))
     .catch(next)
+
+export const admin = ({ querymen: { query, select, cursor } }, res, next) =>
+  User.find(query, select, cursor)
+    .then((users) => users.map((user) => user.admin()))
+    .then(success(res, 201))
+    .catch(next)
